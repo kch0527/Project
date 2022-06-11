@@ -43,9 +43,16 @@ public class MemberTest {
                 .email(str + "@induk.ac.kr")
                 .phone("phone-" + new Random().nextInt(50))
                 .address("address-" + new Random().nextInt(50))
+                .block(0L)
                 .build();
         memberRepository.save(entity);
     }
+
+    @Test
+    void deleteMeber(){
+        memberRepository.deleteById(50L);
+    }
+
 
 
 

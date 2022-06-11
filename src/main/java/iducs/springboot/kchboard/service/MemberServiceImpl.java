@@ -42,6 +42,7 @@ public class MemberServiceImpl implements MemberService{
                 .email(member.getEmail())
                 .phone(member.getPhone())
                 .address(member.getAddress())
+                .block(member.getBlock())
                 .build();
         return entity;
     }
@@ -65,6 +66,7 @@ public class MemberServiceImpl implements MemberService{
                 .email(entity.getEmail())
                 .phone(entity.getPhone())
                 .address((entity.getAddress()))
+                .block(entity.getBlock())
                 .build();
         return member;
     }

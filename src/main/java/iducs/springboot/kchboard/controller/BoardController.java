@@ -26,8 +26,12 @@ public class BoardController {
 
     @GetMapping("/{bno}")
     public String get(@PathVariable Long bno, Model model){
-        model.addAttribute("dto", boardService.getById(bno));
-        return "boards/read";
+        if (boardService.getById(bno).getBlock() == 0L) {
+            model.addAttribute("dto", boardService.getById(bno));
+            return "boards/read";
+        }
+        model.addAttribute(bno);
+        return "boards/limit";
     }
 
     @GetMapping("/regform")
@@ -68,5 +72,19 @@ public class BoardController {
     public String deleteMember(@PathVariable Long bno){
         boardService.delete(boardService.getById(bno));
         return "redirect:/boards";
+    }
+
+    @PostMapping("/{bno}")
+    public String boardBlock(@PathVariable Long bno){
+        Board board = boardService.getById(bno);
+        if (board.getBlock() == 0L){
+            board.setBlock(1L);
+            boardService.update(board);
+        }
+        else{
+            board.setBlock(0L);
+            boardService.update(board);
+        }
+        return "boards/read";
     }
 }

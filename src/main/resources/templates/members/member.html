@@ -74,6 +74,10 @@
                                             <i class="fas fa-user"></i> delete
                                         </a>
 
+                                        <a href="javascript:void(0);" th:onclick="'memberBlock(' + ${member.seq} + ')'" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
+                                            <i class="fas fa-user"></i> 제한하기
+                                        </a>
+
                                         <a th:href="@{'/members'}" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
                                             <i class="fas fa-copy"></i>목록</a>
 
@@ -99,6 +103,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../../dist/js/del.js"> </script>
+<script type="text/javascript" src="../../../dist/js/memberblock.js"> </script>
 <!-- jQuery -->
 <script src="../../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

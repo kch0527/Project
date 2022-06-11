@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+제한된 글 입니다.
+<br/>
+제한은 관리자만 해제할 수 있습니다.
+<br/>
+<a href="javascript:void(0);" th:onclick="'boardblockclear(' + ${bno} + ')'" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
+    <i class="fas fa-user"></i> 제한풀기
+</a>
+<br/>
+<a href="javascript:window.history.back();">뒤로가기</a>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../dist/js/boardblockclear.js"> </script>
+</html>

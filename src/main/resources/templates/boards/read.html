@@ -86,6 +86,10 @@
                         <i class="fas fa-user"></i> 삭제
                       </a>
 
+                      <a href="javascript:void(0);" th:onclick="'boardBlock(' + ${dto.bno} + ')'" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
+                        <i class="fas fa-user"></i> 제한하기
+                      </a>
+
                       <a th:href="@{'/boards'}" class="btn btn-sm btn-primary">
                         <i class="fas fa-copy"></i>목록</a>
 
@@ -150,6 +154,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../../dist/js/delboard.js"> </script>
+<script type="text/javascript" src="../../../dist/js/boardblock.js"> </script>
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

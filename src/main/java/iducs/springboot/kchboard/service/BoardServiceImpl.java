@@ -65,4 +65,5 @@ public class BoardServiceImpl implements BoardService{
         BoardEntity entity = dtoToEntity(board);
         boardRepository.deleteById(entity.getBno());
     }
+
 }

@@ -1,5 +1,6 @@
 package iducs.springboot.kchboard.controller;
 
+import iducs.springboot.kchboard.domain.Board;
 import iducs.springboot.kchboard.domain.Member;
 import iducs.springboot.kchboard.domain.PageRequestDTO;
 import iducs.springboot.kchboard.service.MemberService;
@@ -40,9 +41,26 @@ public class MemberController {
 
     @GetMapping("/{idx}")
     public String getMember(@PathVariable("idx") Long seq, Model model){
+        if (memberService.readById(seq).getBlock() == 0L) {
+            model.addAttribute("member", memberService.readById(seq));
+            return "/members/member";
+        }
+        model.addAttribute(seq);
+        return "members/memberlimit";
+    }
+
+    @PostMapping("/{idx}")
+    public String memberBlock(@PathVariable("idx") Long seq){
         Member member = memberService.readById(seq);
-        model.addAttribute("member", member);
-        return "/members/member";
+        if (member.getBlock() == 0L){
+            member.setBlock(1L);
+            memberService.update(member);
+        }
+        else{
+            member.setBlock(0L);
+            memberService.update(member);
+        }
+        return "members/members";
     }
 
     @GetMapping("/{idx}/upform")
@@ -53,7 +71,8 @@ public class MemberController {
     }
 
     @PutMapping("/{idx}")
-    public String putMember(@ModelAttribute("member") Member member, Model model){
+    public String putMember(@PathVariable("idx") Long seq, @ModelAttribute("member") Member member, Model model){
+        member.setBlock(memberService.readById(seq).getBlock());
         memberService.update(member);
         model.addAttribute(member);
         return "/members/member";
