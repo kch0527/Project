@@ -95,7 +95,7 @@ public class MemberController {
     @PostMapping("/login")
     public String postLogin(@ModelAttribute("member") Member member, HttpServletRequest request){
         Member dto = null;
-        if ((dto = memberService.loginByEmail(member)) != null){
+        if ((dto = memberService.loginByEmail(member)) != null && dto.getBlock() == 0){
             HttpSession session = request.getSession();
             session.setAttribute("login", dto);
             if (dto.getId().contains("admin")){
@@ -103,6 +103,9 @@ public class MemberController {
                 System.out.println(session.getAttribute("isadmin"));
             }
             return "redirect:/home/";
+        }
+        else if((dto = memberService.loginByEmail(member)) != null && dto.getBlock() == 1){
+            return "/members/memberlimit";
         }
         else
             return "/members/loginfail";
