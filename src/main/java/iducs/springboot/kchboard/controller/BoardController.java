@@ -1,7 +1,6 @@
 package iducs.springboot.kchboard.controller;
 
 import iducs.springboot.kchboard.domain.Board;
-import iducs.springboot.kchboard.domain.Member;
 import iducs.springboot.kchboard.domain.PageRequestDTO;
 import iducs.springboot.kchboard.service.BoardService;
 import lombok.RequiredArgsConstructor;

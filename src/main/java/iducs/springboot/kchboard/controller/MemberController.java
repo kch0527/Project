@@ -5,6 +5,7 @@ import iducs.springboot.kchboard.domain.Member;
 import iducs.springboot.kchboard.domain.PageRequestDTO;
 import iducs.springboot.kchboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

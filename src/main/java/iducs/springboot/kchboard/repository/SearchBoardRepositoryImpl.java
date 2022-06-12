@@ -35,7 +35,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
     }
 
     @Override
-    public Page<Object[]> searchpage(String type, String keyword, Pageable pageable){
+    public Page<Object[]> searchPage(String type, String keyword, Pageable pageable){
         log.info("----searchPage------");
         QBoardEntity boardEntity = QBoardEntity.boardEntity;
         QReplyEntity replyEntity = QReplyEntity.replyEntity;
@@ -44,7 +44,9 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
         JPQLQuery<BoardEntity> jpqlQeury = from(boardEntity);
         jpqlQeury.leftJoin(memberEntity).on(boardEntity.writer.eq(memberEntity));
         jpqlQeury.leftJoin(replyEntity).on(replyEntity.board.eq(boardEntity));
+
         JPQLQuery<Tuple> tuple = jpqlQeury.select(boardEntity, memberEntity, replyEntity.count());
+
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression= boardEntity.bno.gt(0L);
         booleanBuilder.and(expression);
@@ -81,9 +83,10 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
 
         tuple.offset(pageable.getOffset());
         tuple.limit(pageable.getPageSize());
+
         List<Tuple> result = tuple.fetch();
+
         long count = tuple.fetchCount();
-        return new PageImpl<Object[]>(result.stream().map(t -> t.toArray()).collect(Collectors.toList()), pageable,
-                count);
+        return new PageImpl<Object[]>(result.stream().map(t -> t.toArray()).collect(Collectors.toList()), pageable,  count);
     }
 }

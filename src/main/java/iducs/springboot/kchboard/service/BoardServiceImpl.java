@@ -38,6 +38,15 @@ public class BoardServiceImpl implements BoardService{
                 (entity -> entityToDto((BoardEntity)entity[0],
                         (MemberEntity) entity[1], (Long) entity[2]));
        Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
+        /*
+       Sort sort = (pageRequestDTO.getSort() == null) ?Sort.by("bno").descending():pageRequestDTO.getSort();
+       Page<Object[]> result = boardRepository.searchpage(
+               pageRequestDTO.getType(),
+               pageRequestDTO.getKeyword(),
+               //pageRequestDTO.getPageable(Sort.by("bno").descending())
+               pageRequestDTO.getPageable(sort)
+       );
+        */
         return new PageResultDTO<>(result, fn);
     }
 
