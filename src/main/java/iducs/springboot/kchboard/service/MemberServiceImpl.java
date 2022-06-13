@@ -30,6 +30,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void create(Member member) {
         MemberEntity entity = dtoToEntity(member);
+        entity.setBlock(0L);
         memberRepository.save(entity);
     }
 

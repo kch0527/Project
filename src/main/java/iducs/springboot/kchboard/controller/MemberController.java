@@ -30,12 +30,11 @@ public class MemberController {
     public String postMember(@ModelAttribute("member") Member member, Model model ) {
         memberService.create(member);
         model.addAttribute("member", member);
-        return "redirect:/members";
+        return "redirect:/home";
     }
 
     @GetMapping("")
     public String getMembers(PageRequestDTO pageRequestDTO, Model model){
-        //List<Member> members = memberService.readAll();
         model.addAttribute("list", memberService.readListBy(pageRequestDTO));
         return "/members/members";
     }
@@ -50,8 +49,8 @@ public class MemberController {
         return "members/memberlimit";
     }
 
-    @PostMapping("/{idx}")
-    public String memberBlock(@PathVariable("idx") Long seq){
+    @PostMapping("/{seq}")
+    public String memberBlock(@PathVariable Long seq){
         Member member = memberService.readById(seq);
         if (member.getBlock() == 0L){
             member.setBlock(1L);
@@ -81,9 +80,15 @@ public class MemberController {
 
     @DeleteMapping("/{idx}")
     public String deleteMember(@PathVariable Long idx, HttpSession session){
-        memberService.delete(memberService.readById(idx));
-        session.invalidate();
-        return "redirect:/members";
+        if (((Member) session.getAttribute("login")).getSeq() == idx) {
+            memberService.delete(memberService.readById(idx));
+            session.invalidate();
+            return "redirect:/home";
+        }
+        else if(session.getAttribute("isadmin") != null){
+            memberService.delete(memberService.readById(idx));
+        }
+        return "redirect:/home";
     }
 
 
