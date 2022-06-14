@@ -42,18 +42,14 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Member</h3>
+                    <h3 class="card-title">MemberList</h3>
                     <br/>
-                    로그인 실패 : 제한된 멤버 입니다.
+                    MemberList 조회 권환이 없습니다.
                     <br/>
-                    제한은 관리자만 해제할 수 있습니다.
+                    MemberList 조회는 관리자만 가능합니다.
                     <br/>
-                    <a href="javascript:void(0);" th:onclick="'memberblockclear(' + ${idx} + ')'" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
-                        <i class="fas fa-user"></i> 제한풀기
-                    </a>
-                    <br/>
-                    <a href="javascript:window.history.back();" class="btn btn-sm btn-primary">뒤로가기</a>
 
+                    <a href="javascript:window.history.back();" class="btn btn-sm btn-primary">뒤로가기</a>
 
                 </div>
             </div>
@@ -67,8 +63,6 @@
 </div>
 <!-- ./wrapper -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../../dist/js/memberblockclear.js"> </script>
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

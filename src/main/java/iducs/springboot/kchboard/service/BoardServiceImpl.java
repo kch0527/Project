@@ -8,6 +8,7 @@ import iducs.springboot.kchboard.entity.MemberEntity;
 import iducs.springboot.kchboard.repository.BoardRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -37,16 +38,20 @@ public class BoardServiceImpl implements BoardService{
         Function<Object[], Board> fn =
                 (entity -> entityToDto((BoardEntity)entity[0],
                         (MemberEntity) entity[1], (Long) entity[2]));
-       Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
-        /*
-       Sort sort = (pageRequestDTO.getSort() == null) ?Sort.by("bno").descending():pageRequestDTO.getSort();
-       Page<Object[]> result = boardRepository.searchpage(
-               pageRequestDTO.getType(),
-               pageRequestDTO.getKeyword(),
-               //pageRequestDTO.getPageable(Sort.by("bno").descending())
-               pageRequestDTO.getPageable(sort)
-       );
-        */
+        String type = pageRequestDTO.getType();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = null;
+        String page = pageRequestDTO.getSort();
+        String asc = "asc";
+        pageable = pageRequestDTO.getPageable(Sort.by("bno").descending());
+        if(page != null) {
+            if(page.equals(asc)) {
+                pageable = pageRequestDTO.getPageable(Sort.by("bno").ascending());
+            }
+        }
+
+        Page<Object[]> result = boardRepository.searchPage(type, keyword, pageable);
+
         return new PageResultDTO<>(result, fn);
     }
 

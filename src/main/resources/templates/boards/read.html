@@ -78,11 +78,13 @@
                     </div>
                   <div class="card-footer">
                     <div class="text-right">
-                      <a th:href="@{'/boards/' + ${dto.bno} + '/upform'}" class="btn btn-sm bg-teal">
+                      <a th:href="@{'/boards/' + ${dto.bno} + '/upform'}" class="btn btn-sm bg-teal"
+                         th:if="${(session.login != null && session.login.seq == dto.writerSeq) || session.isadmin != null}">
                         <i class="fas fa-comments"></i> 수정
                       </a>
 
-                      <a href="javascript:void(0);" th:onclick="'deleteBoard(' + ${dto.bno} + ')'" class="btn btn-sm btn-primary">
+                      <a href="javascript:void(0);" th:onclick="'deleteBoard(' + ${dto.bno} + ')'" class="btn btn-sm btn-primary"
+                      th:if="${(session.login != null && session.login.seq == dto.writerSeq) || session.isadmin != null}">
                         <i class="fas fa-user"></i> 삭제
                       </a>
 
@@ -90,8 +92,8 @@
                         <i class="fas fa-user"></i> 제한하기
                       </a>
 
-                      <a th:href="@{'/boards'}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-copy"></i>목록</a>
+                      <a href="javascript:window.history.back();">
+                        <i class="fas fa-copy"></i> 뒤로가기</a>
 
                     </div>
                   </div>

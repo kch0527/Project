@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,19 +35,26 @@ public class MemberController {
     }
 
     @GetMapping("")
-    public String getMembers(PageRequestDTO pageRequestDTO, Model model){
-        model.addAttribute("list", memberService.readListBy(pageRequestDTO));
-        return "/members/members";
+    public String getMembers(PageRequestDTO pageRequestDTO, Model model, HttpSession session){
+        if (session.getAttribute("isadmin") != null) {
+            model.addAttribute("list", memberService.readListBy(pageRequestDTO));
+            return "/members/members";
+        }
+        else return "authority/authorityMemberList";
     }
 
     @GetMapping("/{idx}")
-    public String getMember(@PathVariable("idx") Long seq, Model model){
-        if (memberService.readById(seq).getBlock() == 0L) {
+    public String getMember(@PathVariable("idx") Long seq, Model model, HttpSession session){
+        if ((memberService.readById(seq).getBlock() == 0L && ((Member)session.getAttribute("login")).getSeq() == seq)
+        ||(memberService.readById(seq).getBlock() == 0L && session.getAttribute("isadmin") != null)){
             model.addAttribute("member", memberService.readById(seq));
             return "/members/member";
         }
-        model.addAttribute(seq);
-        return "members/memberlimit";
+        else if(memberService.readById(seq).getBlock() == 1L) {
+            model.addAttribute(seq);
+            return "members/memberlimit";
+        }
+        else return "authority/authorityMember";
     }
 
     @PostMapping("/{seq}")
@@ -110,7 +118,7 @@ public class MemberController {
             }
             return "redirect:/home/";
         }
-        else if((dto = memberService.loginByEmail(member)) != null && dto.getBlock() == 1){
+        else if((memberService.loginByEmail(member)) != null && dto.getBlock() == 1){
             return "/members/memberlimit";
         }
         else
