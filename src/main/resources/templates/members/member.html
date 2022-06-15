@@ -78,9 +78,8 @@
                                             <i class="fas fa-user"></i> 제한하기
                                         </a>
 
-                                        <a href="javascript:window.history.back();" th:if="${session.isadmin != null}" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-user"></i> 뒤로가기</a>
-
+                                        <a th:href="@{'/members'}" class="btn btn-sm btn-primary" th:if="${session.isadmin != null}">
+                                            <i class="fas fa-copy"></i>목록</a>
                                     </div>
                                 </div>
                             </div>

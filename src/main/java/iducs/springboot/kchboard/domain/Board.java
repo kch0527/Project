@@ -19,8 +19,8 @@ public class Board {
     private String writerEmail;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
-    private Long block;
 
+    private Long block;
 
 
     private int replyCount;

@@ -1,6 +1,7 @@
 package iducs.springboot.kchboard.controller;
 
 import iducs.springboot.kchboard.domain.Board;
+import iducs.springboot.kchboard.domain.Member;
 import iducs.springboot.kchboard.domain.PageRequestDTO;
 import iducs.springboot.kchboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -34,26 +35,33 @@ public class BoardController {
     }
 
     @GetMapping("/regform")
-    public String getRegForm(Model model){
-        model.addAttribute("dto", Board.builder().build());
-        return "boards/regform";
+    public String getRegForm(Model model, HttpSession session){
+        if (session.getAttribute("login") != null || session.getAttribute("isadmin") != null) {
+            model.addAttribute("dto", Board.builder().build());
+            return "boards/regform";
+        }
+        else return "authority/authorityBoardreg";
     }
 
     @PostMapping("")
     public String post(@ModelAttribute("dto") Board dto){
-        /*
-        Long seqLong = Long .valueOf(new Random().nextInt(50));
-        seqLong = (seqLong == 0)? 1L: seqLong;
-        dto.setWriterSeq(seqLong);
-         */
         Long bno = boardService.register(dto);
         return "redirect:/boards/" +bno;
     }
 
     @GetMapping("/{bno}/upform")
-    public String getUpForm(@PathVariable("bno") Long bno, Model model){
-        model.addAttribute("board", boardService.getById(bno));
-        return "/boards/upForm";
+    public String getUpForm(@PathVariable("bno") Long bno, Model model, HttpSession session){
+        if ((boardService.getById(bno).getBlock() == 0L && session.getAttribute("login") != null &&
+                ((Member)session.getAttribute("login")).getSeq() == boardService.getById(bno).getWriterSeq())
+                ||(boardService.getById(bno).getBlock() == 0L && session.getAttribute("isadmin") != null)) {
+            model.addAttribute("board", boardService.getById(bno));
+            return "/boards/upForm";
+        }
+        else if (boardService.getById(bno).getBlock() == 1L){
+            model.addAttribute(bno);
+            return "boards/limit";
+        }
+        else return "authority/authorityBoard";
     }
 
     @PutMapping("/{bno}")

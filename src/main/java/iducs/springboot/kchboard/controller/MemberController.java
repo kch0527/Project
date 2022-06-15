@@ -45,7 +45,7 @@ public class MemberController {
 
     @GetMapping("/{idx}")
     public String getMember(@PathVariable("idx") Long seq, Model model, HttpSession session){
-        if ((memberService.readById(seq).getBlock() == 0L && ((Member)session.getAttribute("login")).getSeq() == seq)
+        if ((memberService.readById(seq).getBlock() == 0L && session.getAttribute("login") != null && ((Member)session.getAttribute("login")).getSeq() == seq)
         ||(memberService.readById(seq).getBlock() == 0L && session.getAttribute("isadmin") != null)){
             model.addAttribute("member", memberService.readById(seq));
             return "/members/member";
@@ -72,10 +72,18 @@ public class MemberController {
     }
 
     @GetMapping("/{idx}/upform")
-    public String getUpForm(@PathVariable("idx") Long seq, Model model){
-        Member member = memberService.readById(seq);
-        model.addAttribute("member", member);
-        return "/members/upForm";
+    public String getUpForm(@PathVariable("idx") Long seq, Model model, HttpSession session){
+        if ((memberService.readById(seq).getBlock() == 0L && session.getAttribute("login") != null && ((Member)session.getAttribute("login")).getSeq() == seq)
+                ||(memberService.readById(seq).getBlock() == 0L && session.getAttribute("isadmin") != null)) {
+            Member member = memberService.readById(seq);
+            model.addAttribute("member", member);
+            return "/members/upForm";
+        }
+        else if(memberService.readById(seq).getBlock() == 1L) {
+            model.addAttribute(seq);
+            return "members/memberlimit";
+        }
+        else return "authority/authorityMember";
     }
 
     @PutMapping("/{idx}")
