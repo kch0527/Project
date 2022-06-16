@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="tb_member")
+@Table(name="tb_member201812043")
 @ToString
 @Getter
 @Setter
