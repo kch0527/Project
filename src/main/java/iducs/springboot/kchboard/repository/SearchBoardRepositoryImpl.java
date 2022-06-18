@@ -65,6 +65,10 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
                     case "c":
                         conditionBuilder.or(boardEntity.content.contains(keyword));
                         break;
+                    case "v":
+                        conditionBuilder.or(boardEntity.views.contains(keyword));
+                        break;
+
                 }
             }
             booleanBuilder.and(conditionBuilder);

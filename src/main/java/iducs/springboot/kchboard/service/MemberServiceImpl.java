@@ -44,6 +44,7 @@ public class MemberServiceImpl implements MemberService{
                 .phone(member.getPhone())
                 .address(member.getAddress())
                 .block(member.getBlock())
+                .level(member.getLevel())
                 .build();
         return entity;
     }
@@ -68,6 +69,7 @@ public class MemberServiceImpl implements MemberService{
                 .phone(entity.getPhone())
                 .address((entity.getAddress()))
                 .block(entity.getBlock())
+                .level(entity.getLevel())
                 .build();
         return member;
     }
@@ -108,6 +110,8 @@ public class MemberServiceImpl implements MemberService{
             conditionBuilder.or(qMemberEntity.phone.contains(keyword));
         if (type.contains("a")) //address 검색
             conditionBuilder.or(qMemberEntity.address.contains(keyword));
+        if (type.contains("l")) //address 검색
+            conditionBuilder.or(qMemberEntity.level.contains(keyword));
         booleanBuilder.and(conditionBuilder);
         return booleanBuilder;
     }

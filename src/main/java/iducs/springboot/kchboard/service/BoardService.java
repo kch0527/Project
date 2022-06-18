@@ -14,6 +14,7 @@ public interface BoardService {
     Long modify(Board dto);
     void update(Board board);
     void delete(Board board);
+    void saveView(Board board);
 
     default BoardEntity dtoToEntity(Board dto){
         MemberEntity member = MemberEntity.builder()
@@ -25,6 +26,7 @@ public interface BoardService {
                 .content(dto.getContent())
                 .writer(member)
                 .block(dto.getBlock())
+                .views(dto.getViews())
                 .build();
         return board;
     }
@@ -42,6 +44,7 @@ public interface BoardService {
                 .modDate(entity.getModDate())
                 .replyCount(replyCount.intValue())
                 .block(entity.getBlock())
+                .views(entity.getViews())
                 .build();
         return dto;
     }

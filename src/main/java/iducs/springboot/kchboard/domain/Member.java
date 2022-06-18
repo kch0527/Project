@@ -14,4 +14,5 @@ public class Member {
     private String phone;
     private String address;
     private Long block;
+    private String level;
 }

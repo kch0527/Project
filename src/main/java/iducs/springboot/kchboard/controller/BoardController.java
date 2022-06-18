@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +28,12 @@ public class BoardController {
     @GetMapping("/{bno}")
     public String get(@PathVariable Long bno, Model model){
         if (boardService.getById(bno).getBlock() == 0L) {
+            Board board = boardService.getById(bno);
+            Long aLong = Long.valueOf(boardService.getById(bno).getViews());
+            aLong = aLong ++;
+            boardService.getById(bno).setViews(Long.toString(aLong));
+            board.setViews(boardService.getById(bno).getViews() + 1);
+            boardService.saveView(board);
             model.addAttribute("dto", boardService.getById(bno));
             return "boards/read";
         }

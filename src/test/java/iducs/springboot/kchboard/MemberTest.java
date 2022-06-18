@@ -28,6 +28,7 @@ public class MemberTest {
                     .phone("phone" + new Random().nextInt(50))
                     .address("address" + new Random().nextInt(50))
                     .block(0L)
+                    .level("1")
                     .build();
             memberRepository.save(memberEntity);
         });
@@ -44,6 +45,7 @@ public class MemberTest {
                 .phone("phone-" + new Random().nextInt(50))
                 .address("address-" + new Random().nextInt(50))
                 .block(0L)
+                .level("3")
                 .build();
         memberRepository.save(entity);
     }

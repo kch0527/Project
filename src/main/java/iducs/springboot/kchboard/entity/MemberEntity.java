@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="tb_member")
+@Table(name="t_meber")
 @ToString
 @Getter
 @Setter
@@ -33,6 +33,8 @@ public class MemberEntity extends BaseEntity{
     private String address;
 
     private Long block; //0: 조회가능  1:제한
+
+    private String level;
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private List<BoardEntity> boardEntityList = new ArrayList<>();

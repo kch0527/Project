@@ -62,6 +62,12 @@
                                                     <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: <input type = "text" name="address" th:field="*{address}"/><br></li>
                                                     <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone : <input type = "text" name="phone" th:field="*{phone}"/><br></li>
                                                 </ul>
+                                                <select class="form-control" name="level">
+                                                    <option th:value="${member.level}">[[${member.level}]]</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
                                             </div>
                                             <div class="col-5 text-center">
                                                 <img src="../../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">

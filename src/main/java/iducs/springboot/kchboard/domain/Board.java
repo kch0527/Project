@@ -21,6 +21,8 @@ public class Board {
     private LocalDateTime modDate;
 
     private Long block;
+    private String views;
+    private String category;
 
 
     private int replyCount;

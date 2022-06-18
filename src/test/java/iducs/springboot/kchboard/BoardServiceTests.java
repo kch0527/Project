@@ -29,6 +29,7 @@ public class BoardServiceTests {
                     .content("Content" + (50 - seqLong))
                     .writerSeq(seqLong)
                     .block(0L)
+                    .views("0")
                     .build();
             Long bno = boardService.register(dto);
         });

@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tb_board")
+@Table(name = "t_board")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +20,8 @@ public class BoardEntity extends BaseEntity{
 
     private String title;
     private String content;
+
+    private String views;
 
     private Long block; //0: 조회가능  1:제한
     @ManyToOne

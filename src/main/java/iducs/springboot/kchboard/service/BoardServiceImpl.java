@@ -27,6 +27,7 @@ public class BoardServiceImpl implements BoardService{
     public Long register(Board dto){
         log.info(dto);
         dto.setBlock(0L);
+        dto.setViews("0");
         BoardEntity boardEntity = dtoToEntity(dto);
         boardRepository.save(boardEntity);
         return boardEntity.getBno();
@@ -79,5 +80,12 @@ public class BoardServiceImpl implements BoardService{
         BoardEntity entity = dtoToEntity(board);
         boardRepository.deleteById(entity.getBno());
     }
+
+    @Override
+    public void saveView(Board board){
+        BoardEntity boardEntity = dtoToEntity(board);
+        boardRepository.save(boardEntity);
+    }
+
 
 }

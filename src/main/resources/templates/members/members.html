@@ -67,6 +67,7 @@
                             <option value="p">phone</option>
                             <option value="a">address</option>
                             <option value="ea">email+address</option>
+                            <option value="l">level</option>
                           </select>
                           <input type="text" name="keyword" class="form-control float-right" placeholder="Search">
 
@@ -89,6 +90,7 @@
                       <th style="width: 50px">email</th>
                       <th>phone</th>
                       <th>address</th>
+                      <th>level</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -100,6 +102,7 @@
                       <td><span th:text="${member.email}"></span></td>
                       <td><span th:text="${member.phone}"></span></td>
                       <td><span th:text="${member.address}"></span></td>
+                      <td><span th:text="${member.level}"></span></td>
                     </tr>
                   </tbody>
                 </table>
