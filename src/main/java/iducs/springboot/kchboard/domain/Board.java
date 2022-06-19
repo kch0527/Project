@@ -21,7 +21,7 @@ public class Board {
     private LocalDateTime modDate;
 
     private Long block;
-    private String views;
+    private Long views;
     private String category;
 
 

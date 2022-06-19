@@ -28,12 +28,7 @@ public class BoardController {
     @GetMapping("/{bno}")
     public String get(@PathVariable Long bno, Model model){
         if (boardService.getById(bno).getBlock() == 0L) {
-            Board board = boardService.getById(bno);
-            Long aLong = Long.valueOf(boardService.getById(bno).getViews());
-            aLong = aLong ++;
-            boardService.getById(bno).setViews(Long.toString(aLong));
-            board.setViews(boardService.getById(bno).getViews() + 1);
-            boardService.saveView(board);
+           boardService.saveView(bno);
             model.addAttribute("dto", boardService.getById(bno));
             return "boards/read";
         }
@@ -77,6 +72,7 @@ public class BoardController {
         board.setModDate(boardService.getById(bno).getModDate());
         board.setWriterEmail(boardService.getById(bno).getWriterEmail());
         board.setBlock(boardService.getById(bno).getBlock());
+        board.setViews(boardService.getById(bno).getViews());
         boardService.update(board);
         model.addAttribute(board);
         return "/boards/read";
@@ -101,4 +97,5 @@ public class BoardController {
         }
         return "boards/read";
     }
+
 }

@@ -62,9 +62,17 @@
                     </div>
                     <div class="col-7">
                     bno :<br/> <input type = "text" name="bno" th:field="*{bno}" th:value="*{bno}" readonly/><br>
-                      writerSeq : <input type = "text" name="writerSeq" th:field="*{writerSeq}" th:value="*{writerSeq}" readonly/><br>
+                      writerSeq :<br/> <input type = "text" name="writerSeq" th:field="*{writerSeq}" th:value="*{writerSeq}" readonly/><br>
                     Title :<br/> <input type = "text" name="title" th:field="*{title}"/><br>
-                    Content : <input type = "text" name="content" th:field="*{content}"/><br>
+                    Content :<br/> <input type = "text" name="content" th:field="*{content}"/><br>
+                      category
+                      <br>
+                      <select class="form-control" name="category">
+                        <option th:value="${board.category}">category</option>
+                        <option value="1">공학</option>
+                        <option value="2">예체능</option>
+                        <option value="3">인문계</option>
+                      </select>
                   </div>
                   </div>
                 </div>

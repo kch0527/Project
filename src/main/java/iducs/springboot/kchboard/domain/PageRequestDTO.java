@@ -18,6 +18,7 @@ public class PageRequestDTO {
     private String sort;
     private String type;
     private String keyword;
+    private String category;
 
     public PageRequestDTO() {
         this.page = 1;

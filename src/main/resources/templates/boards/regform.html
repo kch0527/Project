@@ -66,6 +66,15 @@
                 <input type="text" th:value="${session.login.seq}" th:name="writerSeq" readonly
                        id="inputWriter" class="form-control" name="writerSeq">
               </div>
+              <br/>
+              category
+              <br/>
+              <select class="form-control" name="category">
+                <option value="1">공학</option>
+                <option value="2">예체능</option>
+                <option value="3">인문계</option>
+              </select>
+
               <div class="col-12">
               <input type="submit" value="Register" class="btn btn-success">
                 <input type="reset" value="Reset" class="btn btn-success float-right">

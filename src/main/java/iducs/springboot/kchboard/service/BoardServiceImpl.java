@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.function.Function;
 
 @Service
@@ -27,7 +28,7 @@ public class BoardServiceImpl implements BoardService{
     public Long register(Board dto){
         log.info(dto);
         dto.setBlock(0L);
-        dto.setViews("0");
+        dto.setViews(0L);
         BoardEntity boardEntity = dtoToEntity(dto);
         boardRepository.save(boardEntity);
         return boardEntity.getBno();
@@ -41,17 +42,18 @@ public class BoardServiceImpl implements BoardService{
                         (MemberEntity) entity[1], (Long) entity[2]));
         String type = pageRequestDTO.getType();
         String keyword = pageRequestDTO.getKeyword();
+        String category = pageRequestDTO.getCategory();
         Pageable pageable = null;
         String page = pageRequestDTO.getSort();
         String asc = "asc";
-        pageable = pageRequestDTO.getPageable(Sort.by("bno").descending());
+        pageable = pageRequestDTO.getPageable(Sort.by("views").descending());
         if(page != null) {
             if(page.equals(asc)) {
-                pageable = pageRequestDTO.getPageable(Sort.by("bno").ascending());
+                pageable = pageRequestDTO.getPageable(Sort.by("views").ascending());
             }
         }
 
-        Page<Object[]> result = boardRepository.searchPage(type, keyword, pageable);
+        Page<Object[]> result = boardRepository.searchPage(type, keyword, pageable, category);
 
         return new PageResultDTO<>(result, fn);
     }
@@ -82,10 +84,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void saveView(Board board){
-        BoardEntity boardEntity = dtoToEntity(board);
-        boardRepository.save(boardEntity);
+    @Transactional
+    public void saveView(Long bno){
+        Board board = getById(bno);
+        long view = board.getViews() + 1;
+        board.setViews(view);
+        update(board);
     }
+
+
 
 
 }

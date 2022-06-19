@@ -47,12 +47,19 @@
 
                     <div class="card-tools">
                         <form th:action="@{'/boards'}" th:method="get">
-                            <div class="input-group input-group-sm" style="width: 350px;">
+                            <div class="input-group input-group-sm" style="width: 400px;">
 
                                 <select class="form-control" name="sort">
-                                    <option value=""> sort</option>
+                                    <option value=""> sort-views</option>
                                     <option value="desc">desc</option>
                                     <option value="asc">asc</option>
+                                </select>
+
+                                <select class="form-control" name="category">
+                                    <option value="">category</option>
+                                    <option value="1">공학</option>
+                                    <option value="2">예체능</option>
+                                    <option value="3">인문계</option>
                                 </select>
 
                                 <select class="form-control" name="type">
@@ -60,7 +67,6 @@
                                     <option value="t">title</option>
                                     <option value="w">email</option>
                                     <option value="c">content</option>
-                                    <option value="v">views</option>
                                 </select>
                                 <input type="text" name="keyword" class="form-control float-right" placeholder="Search">
 
@@ -148,7 +154,7 @@
                         </li>
 
                         <li th:class="'page-item' + ${list.currentPage == page? ' active':''}" th:each="page : ${list.pageList}">
-                            <a class="page-link" th:href="@{/boards(page=${page},sort=${pageRequestDTO.sort},
+                            <a class="page-link" th:href="@{/boards(page=${page},sort=${pageRequestDTO.sort}, category=${pageRequestDTO.category},
                     type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">[[${page}]]</a>
                         </li>
 

@@ -35,7 +35,7 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
     }
 
     @Override
-    public Page<Object[]> searchPage(String type, String keyword, Pageable pageable){
+    public Page<Object[]> searchPage(String type, String keyword, Pageable pageable, String category){
         log.info("----searchPage------");
         QBoardEntity boardEntity = QBoardEntity.boardEntity;
         QReplyEntity replyEntity = QReplyEntity.replyEntity;
@@ -65,10 +65,24 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
                     case "c":
                         conditionBuilder.or(boardEntity.content.contains(keyword));
                         break;
-                    case "v":
-                        conditionBuilder.or(boardEntity.views.contains(keyword));
+                }
+            }
+            booleanBuilder.and(conditionBuilder);
+        }
+        if(category != null) {
+            String[] categoryArr = category.split("");
+            BooleanBuilder conditionBuilder = new BooleanBuilder();
+            for(String c : categoryArr) {
+                switch (c) {
+                    case "1":
+                        conditionBuilder.or(boardEntity.category.contains(category));
                         break;
-
+                    case "2":
+                        conditionBuilder.or(boardEntity.category.contains(category));
+                        break;
+                    case "3":
+                        conditionBuilder.or(boardEntity.category.contains(category));
+                        break;
                 }
             }
             booleanBuilder.and(conditionBuilder);
