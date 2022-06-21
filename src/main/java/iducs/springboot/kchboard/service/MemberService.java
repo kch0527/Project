@@ -19,4 +19,5 @@ public interface MemberService {
     Member readByEmail(Member member);
 
     Member loginByEmail(Member member);
+    MemberEntity commentByMember(Member member);
 }

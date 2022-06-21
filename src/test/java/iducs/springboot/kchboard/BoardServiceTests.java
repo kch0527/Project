@@ -30,20 +30,12 @@ public class BoardServiceTests {
                     .writerSeq(seqLong)
                     .block(0L)
                     .views(0L)
+                    .category("1")
                     .build();
             Long bno = boardService.register(dto);
         });
     }
 
-    @Test
-    public void testRegisterOne(){
-        Board board = Board.builder()
-                .title("Title-")
-                .content("Content-")
-                .writerSeq(10L)
-                .build();
-        Long bno = boardService.register(board);
-    }
 
     @Test
     public void testList(){

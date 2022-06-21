@@ -44,9 +44,9 @@
         <div class="card-header">
           <h3 class="card-title">Board Detail</h3>
           <br/>
-          category : <a href="#" th:if="${dto.category == '1'}">공학</a>
-          <a href="#" th:if="${dto.category == '2'}">예체능</a>
-          <a href="#" th:if="${dto.category == '3'}">인문계</a>
+          category : <a th:if="${dto.category == '1'}">공학</a>
+          <a th:if="${dto.category == '2'}">예체능</a>
+          <a th:if="${dto.category == '3'}">인문계</a>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

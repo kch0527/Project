@@ -58,7 +58,7 @@ public class MemberController {
     }
 
     @PostMapping("/{seq}")
-    public String memberBlock(@PathVariable Long seq){
+    public String memberBlock(@PathVariable Long seq, Model model, PageRequestDTO pageRequestDTO){
         Member member = memberService.readById(seq);
         if (member.getBlock() == 0L){
             member.setBlock(1L);
@@ -68,6 +68,7 @@ public class MemberController {
             member.setBlock(0L);
             memberService.update(member);
         }
+        model.addAttribute("list", memberService.readListBy(pageRequestDTO));
         return "members/members";
     }
 

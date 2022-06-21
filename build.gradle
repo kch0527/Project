@@ -31,6 +31,9 @@ dependencies {
 
     implementation "com.querydsl:querydsl-jpa:5.0.0"
     implementation "com.querydsl:querydsl-apt:5.0.0"
+
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 tasks.named('test') {

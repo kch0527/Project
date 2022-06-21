@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AdminLTE 3 | Projects</title>
+
+	<!-- Google Font: Source Sans Pro -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+	<div th:replace="~{/nav :: navfrag}"/>
+
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1>Album</h1>
+					</div>
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#">Home</a></li>
+							<li class="breadcrumb-item active">Boards</li>
+						</ol>
+					</div>
+				</div>
+			</div><!-- /.container-fluid -->
+		</section>
+			<section class="content">
+				<div class="card">
+					<div class="card-body p-0">
+						<div class="card-tools">
+			<h1>Album Register</h1>
+			<form id="frm" action="/album/add/action" th:method="post" enctype="multipart/form-data">
+				<div class="mb-3">
+					<label class="form-label font-weight-bold"><span class="text-danger"></span>Member</label>
+					<input type="text" class="form-control" th:value="${session.login.seq}" name="member" required readonly>
+				</div>
+				<div class="mb-3">
+				    <label class="form-label font-weight-bold"><span class="text-danger"></span>Title</label>
+				    <input type="text" class="form-control" name="title" required >
+				</div>
+				<div class="mb-3">
+				    <label class="form-label font-weight-bold">Image Upload.</label>
+					<div id="fileDiv">
+						<div class="custom-file mt-1">
+							<input type="file" class="custom-file-input" id="customFile" name="customFile" onchange="fnChngFile(this);">
+							<label class="custom-file-label" for="customFile">Choose image</label>
+						</div>
+					</div>
+			    </div>
+				<div class="mt-5">
+					<button type="button" class="btn btn-success" onclick="javascript:location.href='/album/list'">Previous</button>
+					<button type="button" class="btn btn-primary" onclick="fnSubmit();">Save</button>
+				</div>
+			</form>
+		</div>
+					</div>
+				</div>
+			</section>
+	</div>
+	<div th:replace="~{/footer :: footerfrag}"/>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../dist/js/albumReg.js"> </script>
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+</body>
+</html>

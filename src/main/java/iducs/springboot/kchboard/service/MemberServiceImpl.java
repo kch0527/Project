@@ -158,4 +158,9 @@ public class MemberServiceImpl implements MemberService{
         }
         return dto;
     }
+
+    public MemberEntity commentByMember(Member member){
+        MemberEntity entity = dtoToEntity(member);
+        return entity;
+    }
 }
